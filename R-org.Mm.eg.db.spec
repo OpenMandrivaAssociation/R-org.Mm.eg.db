@@ -1,26 +1,24 @@
-%bcond_without bootstrap
+%bcond_with bootstrap
 %global packname  org.Mm.eg.db
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
 Version:          2.6.4
-Release:          1
+Release:          2
 Summary:          Genome wide annotation for Mouse
 Group:            Sciences/Mathematics
 License:          Artistic-2.0
 URL:              http://bioconductor.org/packages/release/data/annotation/html/%{packname}.html
 Source0:          http://bioconductor.org/packages/release/data/annotation/src/contrib/%{packname}_%{version}.tar.gz
 BuildArch:        noarch
-Requires:         R-core
-%if %{with bootstrap}
-Requires:         R-methods R-AnnotationDbi R-annotate R-hgu95av2.db
-%else
-Requires:         R-methods R-AnnotationDbi R-annotate 
+Requires:         R-core R-methods R-AnnotationDbi R-annotate
+%if %{without bootstrap}
+Requires:         R-hgu95av2.db
 %endif
-BuildRequires:    R-devel Rmath-devel texlive-collection-latex R-methods R-AnnotationDbi
-%if %{with bootstrap}
-%else
-BuildRequires:    R-methods R-AnnotationDbi R-annotate R-hgu95av2.db
+BuildRequires:    R-devel Rmath-devel texlive-collection-latex R-methods
+BuildRequires:    R-AnnotationDbi R-annotate
+%if %{without bootstrap}
+BuildRequires:    R-hgu95av2.db
 %endif
 
 %description
